@@ -1,5 +1,3 @@
-package net.guillaume.teaching.refactoring.monopoly;
-
 import java.util.ArrayList;
 
 public class Joueur implements Comparable {

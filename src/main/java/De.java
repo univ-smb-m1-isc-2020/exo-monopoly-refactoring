@@ -1,5 +1,3 @@
-package net.guillaume.teaching.refactoring.monopoly;
-
 public class De {
 
     private int valeurFace;

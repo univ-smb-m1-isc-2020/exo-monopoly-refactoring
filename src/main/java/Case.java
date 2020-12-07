@@ -1,5 +1,3 @@
-package net.guillaume.teaching.refactoring.monopoly;
-
 public abstract class Case {
 
     private final String name;
