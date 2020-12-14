@@ -96,6 +96,10 @@ public class Joueur implements Comparable {
     	return des[0].getValeur() + des[1].getValeur();
     }
     
+    public int getTour() {
+    	return this.tour;
+    }
+    
     public void incrementerTour() {
     	this.tour++;
     }
