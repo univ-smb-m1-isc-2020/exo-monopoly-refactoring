@@ -2,10 +2,17 @@ package net.guillaume.teaching.refactoring.monopoly;
 
 import java.util.ArrayList;
 
+import net.guillaume.teaching.refactoring.monopoly.cases.Case;
+import net.guillaume.teaching.refactoring.monopoly.cases.CaseConstructible;
+import net.guillaume.teaching.refactoring.monopoly.cases.CaseDepart;
+import net.guillaume.teaching.refactoring.monopoly.cases.CaseImpotRevenu;
+import net.guillaume.teaching.refactoring.monopoly.cases.CaseSpeciale;
+import net.guillaume.teaching.refactoring.monopoly.cases.CaseTaxeLuxe;
+
 public class Plateau {
 
 
-    public Case depart;
+    public CaseDepart depart;
     public  CaseConstructible bellevile;
     public  CaseConstructible lecourbe;
     public  CaseConstructible vaugirard;
@@ -29,7 +36,7 @@ public class Plateau {
     public  CaseConstructible champs;
     public  CaseConstructible paix;
     public  CaseSpeciale luxe;
-    public  CaseSpeciale impot;
+    public  CaseImpotRevenu impot;
     public  CaseSpeciale prison;
     public  CaseSpeciale allerenprison;
     public  CaseConstructible garemontparnasse;
@@ -48,7 +55,7 @@ public class Plateau {
 
 
     private void creerLesCases(){
-    depart = new CaseSpeciale("Depart");
+    depart = new CaseDepart();
     bellevile = new CaseConstructible("Boulevard de Bellevile", 20, 2,"v");
     lecourbe = new CaseConstructible("Rue Lecourbe", 40, 4, "v");
     vaugirard = new CaseConstructible("Rue Vaugirard", 60, 6,"b");
@@ -71,8 +78,8 @@ public class Plateau {
     capucines = new CaseConstructible("Boulevard des Capucines", 280, 28,"w");
     champs = new CaseConstructible("Avenue des Champs Elysees", 300, 30,"g");
     paix = new CaseConstructible("Rue de la paix",350,35,"g");
-    impot = new CaseSpeciale("Impot sur le Revenu");
-    luxe = new CaseSpeciale("Taxe de Luxe");
+    impot = new CaseImpotRevenu();
+    luxe = new CaseTaxeLuxe();
     prison = new CaseSpeciale("Prison");
     allerenprison = new CaseSpeciale("Aller en Prison");
     garedelyon = new CaseConstructible("Gare De Lyon",120,25,"gare");

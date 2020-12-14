@@ -2,6 +2,9 @@ package net.guillaume.teaching.refactoring.monopoly;
 
 import java.util.ArrayList;
 
+import net.guillaume.teaching.refactoring.monopoly.cases.Case;
+import net.guillaume.teaching.refactoring.monopoly.cases.CaseConstructible;
+
 public class Joueur implements Comparable {
 
     private final De[] des;
@@ -10,7 +13,7 @@ public class Joueur implements Comparable {
     private int argent;
     private Case position;
     private int nombreDeDouble;  // indique le nombre de double a la suite
-    private int tour;  // indique le nombr de tour de plateau
+    private int tour;  // indique le nombre de tour de plateau
     private boolean enPrison; // indique si le joueur est en prison
     private int tourPrison;  // indique le nombre de tour du joueur en prison
     private boolean rejouer; // indique si le joueur va rejouer suite a une double
@@ -80,6 +83,22 @@ public class Joueur implements Comparable {
     public boolean rejoue() {
         return rejouer;
     }
+    
+    public void credit(int gain) {
+    	this.argent += gain;
+    }
+    
+    public void debit(int perte) {
+    	this.argent -= perte;
+    }
+    
+    public int getTotalDes() {
+    	return des[0].getValeur() + des[1].getValeur();
+    }
+    
+    public void incrementerTour() {
+    	this.tour++;
+    }
 
     public boolean finDePartie() { // condition de fin de partie
         return tour == 100 || argent < 0;
@@ -88,8 +107,8 @@ public class Joueur implements Comparable {
     public int[] lancer() {  // le joueur lance les 2 et recupere un tableau de valeur
         int[] valeurlancer = new int[2];
         for (int i = 0; i < des.length; i++) {
-            des[0].lancer();
-            valeurlancer[i] = des[0].getValeur();
+            des[i].lancer();
+            valeurlancer[i] = des[i].getValeur();
         }
         return valeurlancer;
     }
@@ -154,20 +173,15 @@ public class Joueur implements Comparable {
         }
     }
 
-    public void joue(int total, Case dep, Case imp, Case lux, Case allerenpri, Case priso) {
+    public void joue(int total, Case allerenpri, Case priso) {
         for (int i = 0; i < total; i++) {    // deplace le joueur en fonction du lancer
             position = position.retourneCaseSuivante();
-            if (dep.equals(position)) {  // si il passe par le depart
-                argent = argent + 200;
-                tour++;
-            }
+            position.passeDessus(this);
         }
-        if (imp.equals(position)) {  // si il arrive sur impot
-            argent = (int) Math.floor(argent * 0.9);
-        }
-        if (lux.equals(position)) { // si il arrive sur taxe de luxe
-            argent = argent - (5 * total);
-        }
+        
+        position.termineDessus(this);
+
+        
         if (allerenpri.equals(position)) { // si il arrive sur aller en prison
             position = priso;
             System.out.println(nom + " est sur Aller en prison. " + getSexeJ() + " va directement en prison sans passer par le départ !!!");

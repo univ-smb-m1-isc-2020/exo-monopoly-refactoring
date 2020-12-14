@@ -1,4 +1,6 @@
-package net.guillaume.teaching.refactoring.monopoly;
+package net.guillaume.teaching.refactoring.monopoly.cases;
+
+import net.guillaume.teaching.refactoring.monopoly.Joueur;
 
 public class CaseConstructible extends Case{
 
@@ -46,6 +48,18 @@ public class CaseConstructible extends Case{
                 return 2;}
         else return 0;
      }
+
+
+	@Override
+	public void passeDessus(Joueur joueur) {
+		// Rien
+	}
+
+
+	@Override
+	public void termineDessus(Joueur joueur) {
+		// Rien
+	}
 
 
 }
