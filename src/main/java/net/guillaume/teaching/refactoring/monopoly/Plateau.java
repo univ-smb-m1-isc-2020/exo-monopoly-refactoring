@@ -1,12 +1,16 @@
 package net.guillaume.teaching.refactoring.monopoly;
 
+import net.guillaume.teaching.refactoring.monopoly.squares.Case;
+import net.guillaume.teaching.refactoring.monopoly.squares.CaseConstructible;
+import net.guillaume.teaching.refactoring.monopoly.squares.CaseSpeciale;
+
 import java.util.ArrayList;
 
 public class Plateau {
 
 
     public Case depart;
-    public  CaseConstructible bellevile;
+    public CaseConstructible bellevile;
     public  CaseConstructible lecourbe;
     public  CaseConstructible vaugirard;
     public  CaseConstructible courcelles;
@@ -28,7 +32,7 @@ public class Plateau {
     public  CaseConstructible capucines;
     public  CaseConstructible champs;
     public  CaseConstructible paix;
-    public  CaseSpeciale luxe;
+    public CaseSpeciale luxe;
     public  CaseSpeciale impot;
     public  CaseSpeciale prison;
     public  CaseSpeciale allerenprison;

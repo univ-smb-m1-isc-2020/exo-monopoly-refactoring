@@ -1,4 +1,4 @@
-package net.guillaume.teaching.refactoring.monopoly;
+package net.guillaume.teaching.refactoring.monopoly.squares;
 
 public abstract class Case {
 
