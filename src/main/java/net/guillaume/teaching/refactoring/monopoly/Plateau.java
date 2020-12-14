@@ -1,46 +1,46 @@
 package net.guillaume.teaching.refactoring.monopoly;
 
-import net.guillaume.teaching.refactoring.monopoly.squares.Case;
-import net.guillaume.teaching.refactoring.monopoly.squares.CaseConstructible;
-import net.guillaume.teaching.refactoring.monopoly.squares.CaseSpeciale;
+import net.guillaume.teaching.refactoring.monopoly.squares.Square;
+import net.guillaume.teaching.refactoring.monopoly.squares.Property;
+import net.guillaume.teaching.refactoring.monopoly.squares.SpecialSquare;
 
 import java.util.ArrayList;
 
 public class Plateau {
 
 
-    public Case depart;
-    public CaseConstructible bellevile;
-    public  CaseConstructible lecourbe;
-    public  CaseConstructible vaugirard;
-    public  CaseConstructible courcelles;
-    public  CaseConstructible republique;
-    public  CaseConstructible neuilly;
-    public  CaseConstructible villette;
-    public  CaseConstructible paradis;
-    public  CaseConstructible mozart;
-    public  CaseConstructible stmichel;
-    public  CaseConstructible pigalle;
-    public  CaseConstructible malesherbes;
-    public  CaseConstructible matignon;
-    public  CaseConstructible henrimartin;
-    public  CaseConstructible bourse;
-    public  CaseConstructible sthonore;
-    public  CaseConstructible fayette;
-    public  CaseConstructible foch;
-    public  CaseConstructible breteuil;
-    public  CaseConstructible capucines;
-    public  CaseConstructible champs;
-    public  CaseConstructible paix;
-    public CaseSpeciale luxe;
-    public  CaseSpeciale impot;
-    public  CaseSpeciale prison;
-    public  CaseSpeciale allerenprison;
-    public  CaseConstructible garemontparnasse;
-    public  CaseConstructible garedelyon;
-    public  CaseConstructible garedunord;
-    public  CaseConstructible garesaintlazard;
-    private ArrayList<CaseConstructible> caseSansProprietaire = new ArrayList<>();
+    public Square depart;
+    public Property bellevile;
+    public Property lecourbe;
+    public Property vaugirard;
+    public Property courcelles;
+    public Property republique;
+    public Property neuilly;
+    public Property villette;
+    public Property paradis;
+    public Property mozart;
+    public Property stmichel;
+    public Property pigalle;
+    public Property malesherbes;
+    public Property matignon;
+    public Property henrimartin;
+    public Property bourse;
+    public Property sthonore;
+    public Property fayette;
+    public Property foch;
+    public Property breteuil;
+    public Property capucines;
+    public Property champs;
+    public Property paix;
+    public SpecialSquare luxe;
+    public SpecialSquare impot;
+    public SpecialSquare prison;
+    public SpecialSquare allerenprison;
+    public Property garemontparnasse;
+    public Property garedelyon;
+    public Property garedunord;
+    public Property garesaintlazard;
+    private ArrayList<Property> caseSansProprietaire = new ArrayList<>();
 
     public Plateau(){
     creerLesCases();
@@ -52,37 +52,37 @@ public class Plateau {
 
 
     private void creerLesCases(){
-    depart = new CaseSpeciale("Depart");
-    bellevile = new CaseConstructible("Boulevard de Bellevile", 20, 2,"v");
-    lecourbe = new CaseConstructible("Rue Lecourbe", 40, 4, "v");
-    vaugirard = new CaseConstructible("Rue Vaugirard", 60, 6,"b");
-    courcelles = new CaseConstructible("Rue De Courcelles", 60, 6,"b");
-    republique = new CaseConstructible("Avenue de la Republique", 80, 8,"b");
-    neuilly = new CaseConstructible("Avenue de Neuilly", 100, 10,"p");
-    villette = new CaseConstructible("Boulevard de la Villette", 100, 10,"p");
-    paradis = new CaseConstructible("Rue de Paradis", 120, 12,"p");
-    mozart = new CaseConstructible("Avenue Mozart", 140, 14,"o");
-    stmichel = new CaseConstructible("Boulevard St Michel", 140, 14,"o");
-    pigalle = new CaseConstructible("Place Pigalle", 160, 16,"o");
-    malesherbes = new CaseConstructible("Boulevard Malesherbes", 180, 18,"r");
-    matignon = new CaseConstructible("Avenue Matignon", 180, 18,"r");
-    henrimartin = new CaseConstructible("Avenue Henri Martin", 200, 20,"r");
-    bourse = new CaseConstructible("Place de la Bourse", 220, 22,"j");
-    sthonore = new CaseConstructible("Faubourg St Honore", 220, 20,"j");
-    fayette = new CaseConstructible("Rue de la Fayette", 240, 24,"j");
-    foch = new CaseConstructible("Avenue Foch", 260, 26,"w");
-    breteuil = new CaseConstructible("Avenue de Breteuil", 260, 26,"w");
-    capucines = new CaseConstructible("Boulevard des Capucines", 280, 28,"w");
-    champs = new CaseConstructible("Avenue des Champs Elysees", 300, 30,"g");
-    paix = new CaseConstructible("Rue de la paix",350,35,"g");
-    impot = new CaseSpeciale("Impot sur le Revenu");
-    luxe = new CaseSpeciale("Taxe de Luxe");
-    prison = new CaseSpeciale("Prison");
-    allerenprison = new CaseSpeciale("Aller en Prison");
-    garedelyon = new CaseConstructible("Gare De Lyon",120,25,"gare");
-    garemontparnasse = new CaseConstructible("Gare Mont-Parnasse",120,25,"gare");
-    garedunord = new CaseConstructible("Gare Du Nord",120,25,"gare");
-    garesaintlazard = new CaseConstructible("Gare Saint-Lazar",120,25,"gare");
+    depart = new SpecialSquare("Depart");
+    bellevile = new Property("Boulevard de Bellevile", 20, 2,"v");
+    lecourbe = new Property("Rue Lecourbe", 40, 4, "v");
+    vaugirard = new Property("Rue Vaugirard", 60, 6,"b");
+    courcelles = new Property("Rue De Courcelles", 60, 6,"b");
+    republique = new Property("Avenue de la Republique", 80, 8,"b");
+    neuilly = new Property("Avenue de Neuilly", 100, 10,"p");
+    villette = new Property("Boulevard de la Villette", 100, 10,"p");
+    paradis = new Property("Rue de Paradis", 120, 12,"p");
+    mozart = new Property("Avenue Mozart", 140, 14,"o");
+    stmichel = new Property("Boulevard St Michel", 140, 14,"o");
+    pigalle = new Property("Place Pigalle", 160, 16,"o");
+    malesherbes = new Property("Boulevard Malesherbes", 180, 18,"r");
+    matignon = new Property("Avenue Matignon", 180, 18,"r");
+    henrimartin = new Property("Avenue Henri Martin", 200, 20,"r");
+    bourse = new Property("Place de la Bourse", 220, 22,"j");
+    sthonore = new Property("Faubourg St Honore", 220, 20,"j");
+    fayette = new Property("Rue de la Fayette", 240, 24,"j");
+    foch = new Property("Avenue Foch", 260, 26,"w");
+    breteuil = new Property("Avenue de Breteuil", 260, 26,"w");
+    capucines = new Property("Boulevard des Capucines", 280, 28,"w");
+    champs = new Property("Avenue des Champs Elysees", 300, 30,"g");
+    paix = new Property("Rue de la paix",350,35,"g");
+    impot = new SpecialSquare("Impot sur le Revenu");
+    luxe = new SpecialSquare("Taxe de Luxe");
+    prison = new SpecialSquare("Prison");
+    allerenprison = new SpecialSquare("Aller en Prison");
+    garedelyon = new Property("Gare De Lyon",120,25,"gare");
+    garemontparnasse = new Property("Gare Mont-Parnasse",120,25,"gare");
+    garedunord = new Property("Gare Du Nord",120,25,"gare");
+    garesaintlazard = new Property("Gare Saint-Lazar",120,25,"gare");
     }
 
     private void creerLesCasesSuivantes(){
@@ -152,7 +152,7 @@ public class Plateau {
 
     }
 
-    public ArrayList<CaseConstructible> getCaseAchetable(){
+    public ArrayList<Property> getCaseAchetable(){
           return caseSansProprietaire;
     }
 }

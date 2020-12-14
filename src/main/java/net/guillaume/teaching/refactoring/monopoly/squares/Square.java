@@ -1,19 +1,19 @@
 package net.guillaume.teaching.refactoring.monopoly.squares;
 
-public abstract class Case {
+public abstract class Square {
 
     private final String name;
-    private Case suivante;
+    private Square suivante;
 
-    public Case(String name) {
+    public Square(String name) {
         this.name = name;
     }
 
-    public void setSuivante(Case c) {
+    public void setSuivante(Square c) {
         suivante = c;
     }
 
-    public Case retourneCaseSuivante() {
+    public Square retourneCaseSuivante() {
         return suivante;
     }
 

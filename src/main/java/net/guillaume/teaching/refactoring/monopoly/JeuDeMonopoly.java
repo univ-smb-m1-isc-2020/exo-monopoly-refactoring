@@ -1,6 +1,6 @@
 package net.guillaume.teaching.refactoring.monopoly;
 
-import net.guillaume.teaching.refactoring.monopoly.squares.CaseConstructible;
+import net.guillaume.teaching.refactoring.monopoly.squares.Property;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,7 +10,7 @@ public class JeuDeMonopoly {
     private final ArrayList<Joueur> joueurs = new ArrayList<>();
     private final Combinaison combinaison;
     private boolean stop = false;
-    private ArrayList<CaseConstructible> caseLibreAAchat = new ArrayList<>();
+    private ArrayList<Property> caseLibreAAchat = new ArrayList<>();
     private Plateau plateau ;
 
 
@@ -83,9 +83,9 @@ public class JeuDeMonopoly {
 
     private void jouerLeTotalDe(Joueur unjoueur, int total) {
         unjoueur.joue(total, plateau.depart, plateau.impot, plateau.luxe, plateau.allerenprison, plateau.prison);   // tester si cas construtible
-        if(unjoueur.getPosition() instanceof  CaseConstructible) {
-        unjoueur.acheterCase((CaseConstructible) unjoueur.getPosition(),caseLibreAAchat);
-        unjoueur.payerLoyer((CaseConstructible) unjoueur.getPosition(),caseLibreAAchat, joueurs);
+        if(unjoueur.getPosition() instanceof Property) {
+        unjoueur.acheterCase((Property) unjoueur.getPosition(),caseLibreAAchat);
+        unjoueur.payerLoyer((Property) unjoueur.getPosition(),caseLibreAAchat, joueurs);
         }
         stop = unjoueur.finDePartie();
         // avancer sur le plateau et faire action
