@@ -3,6 +3,7 @@ package net.guillaume.teaching.refactoring.monopoly;
 import net.guillaume.teaching.refactoring.monopoly.squares.Property;
 import net.guillaume.teaching.refactoring.monopoly.squares.SpecialSquare;
 import net.guillaume.teaching.refactoring.monopoly.squares.Square;
+import net.guillaume.teaching.refactoring.monopoly.squares.Start;
 
 import java.util.ArrayList;
 
@@ -52,7 +53,7 @@ public class Plateau {
 
 
     private void creerLesCases(){
-    depart = new SpecialSquare("Depart");
+    depart = new Start();
     bellevile = new Property("Boulevard de Bellevile", 20, 2,"v");
     lecourbe = new Property("Rue Lecourbe", 40, 4, "v");
     vaugirard = new Property("Rue Vaugirard", 60, 6,"b");

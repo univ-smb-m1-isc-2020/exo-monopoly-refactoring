@@ -1,5 +1,7 @@
 package net.guillaume.teaching.refactoring.monopoly.squares;
 
+import net.guillaume.teaching.refactoring.monopoly.Joueur;
+
 public abstract class Square {
 
     private final String name;
@@ -22,5 +24,8 @@ public abstract class Square {
         return name;
     }
 
+    public void passBy(Joueur joueur) {
+        // default behavior for most of the squares but Start.
+    }
 
 }
