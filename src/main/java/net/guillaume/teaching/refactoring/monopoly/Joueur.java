@@ -157,16 +157,15 @@ public class Joueur implements Comparable {
         }
     }
 
-    public void joue(int total, Square imp, Square lux, Square allerenpri, Square priso) {
+    public void joue(int total, Square lux, Square allerenpri, Square priso) {
         for (int i = 0; i < total; i++) {    // deplace le joueur en fonction du lancer
             position = position.retourneCaseSuivante();
 
             position.passBy(this);
         }
 
-        if (imp.equals(position)) {  // si il arrive sur impot
-            argent = (int) Math.floor(argent * 0.9);
-        }
+        position.touchDown(this);
+        
         if (lux.equals(position)) { // si il arrive sur taxe de luxe
             argent = argent - (5 * total);
         }
@@ -345,6 +344,14 @@ public class Joueur implements Comparable {
 
     public void incrementsLoops() {
         tour +=1;
+    }
+
+    public double getCredit() {
+        return argent;
+    }
+
+    public void debit(double amount) {
+        argent -= amount;
     }
 }
 
