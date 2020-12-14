@@ -1,0 +1,9 @@
+net\guillaume\teaching\refactoring\monopoly\Main.class
+net\guillaume\teaching\refactoring\monopoly\Plateau.class
+net\guillaume\teaching\refactoring\monopoly\Combinaison.class
+net\guillaume\teaching\refactoring\monopoly\JeuDeMonopoly.class
+net\guillaume\teaching\refactoring\monopoly\De.class
+net\guillaume\teaching\refactoring\monopoly\CaseConstructible.class
+net\guillaume\teaching\refactoring\monopoly\Joueur.class
+net\guillaume\teaching\refactoring\monopoly\CaseSpeciale.class
+net\guillaume\teaching\refactoring\monopoly\Case.class
