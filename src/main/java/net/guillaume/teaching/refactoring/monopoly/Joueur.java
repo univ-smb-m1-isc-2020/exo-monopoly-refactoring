@@ -1,5 +1,8 @@
 package net.guillaume.teaching.refactoring.monopoly;
 
+import net.guillaume.teaching.refactoring.monopoly.squares.Case;
+import net.guillaume.teaching.refactoring.monopoly.squares.CaseConstructible;
+
 import java.util.ArrayList;
 
 public class Joueur implements Comparable {

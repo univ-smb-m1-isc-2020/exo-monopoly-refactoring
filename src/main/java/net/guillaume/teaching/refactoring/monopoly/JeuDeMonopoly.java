@@ -1,5 +1,7 @@
 package net.guillaume.teaching.refactoring.monopoly;
 
+import net.guillaume.teaching.refactoring.monopoly.squares.CaseConstructible;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
