@@ -1,5 +1,5 @@
 package net.guillaume.teaching.refactoring.monopoly;
-
+//oscour
 public abstract class Case {
 
     private final String name;
