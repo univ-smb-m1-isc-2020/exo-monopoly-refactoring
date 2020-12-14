@@ -164,11 +164,12 @@ public class Joueur implements Comparable {
             position.passBy(this);
         }
 
-        position.touchDown(this);
-        
+        position.landOn(this);
+
         if (lux.equals(position)) { // si il arrive sur taxe de luxe
             argent = argent - (5 * total);
         }
+
         if (allerenpri.equals(position)) { // si il arrive sur aller en prison
             position = priso;
             System.out.println(nom + " est sur Aller en prison. " + getSexeJ() + " va directement en prison sans passer par le départ !!!");
@@ -344,6 +345,10 @@ public class Joueur implements Comparable {
 
     public void incrementsLoops() {
         tour +=1;
+    }
+
+    public int getLoops() {
+        return tour;
     }
 
     public double getCredit() {
