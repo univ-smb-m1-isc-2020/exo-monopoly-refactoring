@@ -1,7 +1,7 @@
 package net.guillaume.teaching.refactoring.monopoly;
 
-import net.guillaume.teaching.refactoring.monopoly.squares.Square;
 import net.guillaume.teaching.refactoring.monopoly.squares.Property;
+import net.guillaume.teaching.refactoring.monopoly.squares.Square;
 
 import java.util.ArrayList;
 
