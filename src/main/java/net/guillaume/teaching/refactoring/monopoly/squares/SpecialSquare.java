@@ -4,7 +4,7 @@ public class SpecialSquare extends Square {
 
 
     public SpecialSquare(String name) {
-        super (name);
+        super(name);
     }
 
 
