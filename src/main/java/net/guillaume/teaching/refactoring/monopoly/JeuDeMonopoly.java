@@ -82,7 +82,7 @@ public class JeuDeMonopoly {
     }
 
     private void jouerLeTotalDe(Joueur unjoueur, int total) {
-        unjoueur.joue(total, plateau.impot, plateau.luxe, plateau.allerenprison, plateau.prison);   // tester si cas construtible
+        unjoueur.joue(total, plateau.luxe, plateau.allerenprison, plateau.prison);   // tester si cas construtible
         if(unjoueur.getPosition() instanceof Property) {
         unjoueur.acheterCase((Property) unjoueur.getPosition(),caseLibreAAchat);
         unjoueur.payerLoyer((Property) unjoueur.getPosition(),caseLibreAAchat, joueurs);

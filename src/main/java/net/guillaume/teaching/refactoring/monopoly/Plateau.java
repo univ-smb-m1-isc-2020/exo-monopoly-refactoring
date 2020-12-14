@@ -1,9 +1,6 @@
 package net.guillaume.teaching.refactoring.monopoly;
 
-import net.guillaume.teaching.refactoring.monopoly.squares.Property;
-import net.guillaume.teaching.refactoring.monopoly.squares.SpecialSquare;
-import net.guillaume.teaching.refactoring.monopoly.squares.Square;
-import net.guillaume.teaching.refactoring.monopoly.squares.Start;
+import net.guillaume.teaching.refactoring.monopoly.squares.*;
 
 import java.util.ArrayList;
 
@@ -34,7 +31,7 @@ public class Plateau {
     public Property champs;
     public Property paix;
     public SpecialSquare luxe;
-    public SpecialSquare impot;
+    public Square impot;
     public SpecialSquare prison;
     public SpecialSquare allerenprison;
     public Property garemontparnasse;
@@ -76,7 +73,7 @@ public class Plateau {
     capucines = new Property("Boulevard des Capucines", 280, 28,"w");
     champs = new Property("Avenue des Champs Elysees", 300, 30,"g");
     paix = new Property("Rue de la paix",350,35,"g");
-    impot = new SpecialSquare("Impot sur le Revenu");
+    impot = new IncomeTax();
     luxe = new SpecialSquare("Taxe de Luxe");
     prison = new SpecialSquare("Prison");
     allerenprison = new SpecialSquare("Aller en Prison");

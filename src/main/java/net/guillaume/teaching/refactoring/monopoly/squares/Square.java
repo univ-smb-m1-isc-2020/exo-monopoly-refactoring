@@ -28,4 +28,7 @@ public abstract class Square {
         // default behavior for most of the squares but Start.
     }
 
+    public void touchDown(Joueur joueur) {
+        // default behavior for most of the squares but Start.
+    }
 }
