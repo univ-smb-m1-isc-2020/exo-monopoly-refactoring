@@ -1,9 +1,9 @@
 package net.guillaume.teaching.refactoring.monopoly.squares;
 
-public class CaseSpeciale extends Case{
+public class SpecialSquare extends Square {
 
 
-    public CaseSpeciale(String name) {
+    public SpecialSquare(String name) {
         super (name);
     }
 

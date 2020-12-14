@@ -1,7 +1,7 @@
 package net.guillaume.teaching.refactoring.monopoly;
 
-import net.guillaume.teaching.refactoring.monopoly.squares.Case;
-import net.guillaume.teaching.refactoring.monopoly.squares.CaseConstructible;
+import net.guillaume.teaching.refactoring.monopoly.squares.Square;
+import net.guillaume.teaching.refactoring.monopoly.squares.Property;
 
 import java.util.ArrayList;
 
@@ -11,7 +11,7 @@ public class Joueur implements Comparable {
     private final String nom;
     private final String sexe;
     private int argent;
-    private Case position;
+    private Square position;
     private int nombreDeDouble;  // indique le nombre de double a la suite
     private int tour;  // indique le nombr de tour de plateau
     private boolean enPrison; // indique si le joueur est en prison
@@ -28,9 +28,9 @@ public class Joueur implements Comparable {
     private int w;
     private int g;
     private int gare;
-    private ArrayList<CaseConstructible> casespossedes= new ArrayList<>()   ;    // contient la liste des propriété possedes
+    private ArrayList<Property> casespossedes= new ArrayList<>()   ;    // contient la liste des propriété possedes
 
-    public Joueur(String nom, String sexe, Case position) {
+    public Joueur(String nom, String sexe, Square position) {
         des = new De[2];
         this.nom = nom;
         this.sexe= sexe;
@@ -52,7 +52,7 @@ public class Joueur implements Comparable {
         w=0;
         g=0;
         gare=0;
-        casespossedes= new ArrayList<CaseConstructible>();
+        casespossedes= new ArrayList<Property>();
         des[0] = new De();
         des[1] = new De();
     }
@@ -61,7 +61,7 @@ public class Joueur implements Comparable {
         return liberable;
     }
 
-    public Case getPosition() {
+    public Square getPosition() {
         return position;
     }
 
@@ -112,7 +112,7 @@ public class Joueur implements Comparable {
         System.out.println( nom + " fait un total pour son lancer de des de " + total +".");
     }
 
-    public void aFaitUnDouble(Case prison) {
+    public void aFaitUnDouble(Square prison) {
         if (!enPrison && !allerPrisonCeTour) {  // NE DOIT PAS S APPLIQUER SI CASE PRISON DIRECT A CAUSE D UN DOUBLE
             nombreDeDouble++;    // si pas en prison   augmenter double de 1
             if (nombreDeDouble == 3) {   // si 3eme double il va en prison
@@ -157,7 +157,7 @@ public class Joueur implements Comparable {
         }
     }
 
-    public void joue(int total, Case dep, Case imp, Case lux, Case allerenpri, Case priso) {
+    public void joue(int total, Square dep, Square imp, Square lux, Square allerenpri, Square priso) {
         for (int i = 0; i < total; i++) {    // deplace le joueur en fonction du lancer
             position = position.retourneCaseSuivante();
             if (dep.equals(position)) {  // si il passe par le depart
@@ -182,7 +182,7 @@ public class Joueur implements Comparable {
         }
     }
 
-    public void acheterCase(CaseConstructible c,ArrayList<CaseConstructible> listecase) {
+    public void acheterCase(Property c, ArrayList<Property> listecase) {
         if (c.getCoutAchat() < argent && listecase.contains(c)) {  // si le joueur a argent et si la case est libre
             argent = argent - c.getCoutAchat();
             listecase.remove(c);    // enleve la case de la liste des cases libres
@@ -193,7 +193,7 @@ public class Joueur implements Comparable {
     }
 
 
-    public void payerLoyer(CaseConstructible c,ArrayList<CaseConstructible> listecase, ArrayList<Joueur> j) {
+    public void payerLoyer(Property c, ArrayList<Property> listecase, ArrayList<Joueur> j) {
         if (!listecase.contains(c) && !casespossedes.contains(c)) {   //si la case a un propritaire et que ce n est pas le joueur
             if(c.getCouleur()=="gare") {   // traitement du cas particulier de la gare
                 int montantloyer=0;
@@ -327,7 +327,7 @@ public class Joueur implements Comparable {
     public void afficherLesProprietes(){ // affiche les proprietes
         int compteur=0; // sert pour la mise en forme avec les virgules
         System.out.print(getSexeJ() +" est proprietaire de :") ;
-    for (CaseConstructible c : casespossedes) {
+    for (Property c : casespossedes) {
         if (compteur==0) {
         System.out.print(" " + c.getName()) ;
     }

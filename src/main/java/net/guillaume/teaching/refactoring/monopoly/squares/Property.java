@@ -1,12 +1,12 @@
 package net.guillaume.teaching.refactoring.monopoly.squares;
 
-public class CaseConstructible extends Case{
+public class Property extends Square {
 
     private final int coutAchat;
     private final int loyer;
     private final String couleur;
 
-    public CaseConstructible(String name, int coutAchat, int loyer, String couleur) {
+    public Property(String name, int coutAchat, int loyer, String couleur) {
         super(name);
         this.coutAchat = coutAchat;
         this.loyer = loyer;
