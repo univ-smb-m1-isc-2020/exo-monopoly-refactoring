@@ -9,7 +9,7 @@ public class IncomeTax extends Square {
     }
 
     @Override
-    public void touchDown(Joueur player) {
+    public void landOn(Joueur player) {
 
         double credit = player.getCredit();
         double remaining = (int) Math.floor(credit * 0.9);
