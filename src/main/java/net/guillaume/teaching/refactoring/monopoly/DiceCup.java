@@ -1,25 +1,29 @@
 package net.guillaume.teaching.refactoring.monopoly;
 
+import java.util.List;
+
+import static java.util.List.of;
+
 public class DiceCup {
 
-    private final Dice[] dice;
-    int[] valeurlancer = new int[2];
+    private final List<Dice> dices;
 
     public DiceCup(Dice dice1, Dice dice2) {
-        dice = new Dice[2];
-        dice[0] = dice1;
-        dice[1] = dice2;
+        dices = of(dice1, dice2);
     }
 
     public void roll() {
-        for (int i = 0; i < dice.length; i++) {
-            dice[0].roll();
-            valeurlancer[i] = dice[0].read();
-        }
+        dices.forEach(Dice::roll);
     }
 
-    public int[] read() {
-        return valeurlancer;
+    public int total() {
+        return dices
+                .stream()
+                .mapToInt(Dice::read)
+                .sum();
     }
 
+    public boolean isDouble() {
+        return (dices.get(0).read() == dices.get(1).read());
+    }
 }

@@ -86,11 +86,15 @@ public class Player implements Comparable {
         return tour == 100 || argent < 0;
     }
 
-    public void takeTurn(DiceCup cup, Combinaison combinaison, Plateau plateau, List<Property> caseLibreAAchat, List<Player> players, Game game) {
+    public void takeTurn(DiceCup cup, Plateau plateau, List<Property> caseLibreAAchat, List<Player> players, Game game) {
+
         if (!game.stop) { //verifier avant le joueur suivant si la partie est arrete
-            int[] valeurLancer = this.lancer(cup);
-            int total = combinaison.faitLaSomme(valeurLancer);
-            boolean verifdouble = combinaison.estUnDouble(valeurLancer);
+
+            cup.roll();
+
+            int total = cup.total();
+            boolean verifdouble = cup.isDouble();
+
             this.monLance(total);  // plus logique de l'afficher avant son eventuel deplacement, achat ou paiment de loyer, prison j'ai donc decomposé mon ousuisje initial
             // SI DOUBLE
             if (verifdouble) {
@@ -103,7 +107,7 @@ public class Player implements Comparable {
                 {
                     System.out.println(this.getNomJ() + " rejoue.");
                     this.uneFoisCaSuffis();    // on remet a false son droit de rejouer  car appel recursif
-                    takeTurn(cup, combinaison, plateau, caseLibreAAchat, players, game);  // il joue un autre tour
+                    takeTurn(cup, plateau, caseLibreAAchat, players, game);  // il joue un autre tour
                 }
                 if (this.getLiberable()) {   // libere le joueur en prison qui a fait un double
                     this.liberationDouble();
@@ -131,11 +135,6 @@ public class Player implements Comparable {
         game.stop = unjoueur.finDePartie();
         // avancer sur le plateau et faire action
 
-    }
-
-    public int[] lancer(DiceCup cup) {
-        cup.roll();
-        return cup.read();
     }
 
     public void ouSuisJe() {

@@ -10,7 +10,6 @@ public class Game {
 
     private final List<Player> players = new ArrayList<>();
 
-    private final Combinaison combinaison;
     public boolean stop = false;
     private ArrayList<Property> caseLibreAAchat;
     private Plateau plateau;
@@ -24,7 +23,6 @@ public class Game {
         players.add(new Player("Loubna", "Elle", plateau.depart));
         players.add(new Player("Mathieu", "Il", plateau.depart));
         players.add(new Player("Cedric", "Il", plateau.depart));
-        combinaison = new Combinaison();
         caseLibreAAchat = new ArrayList<>(plateau.getCaseAchetable());
         cup = new DiceCup(new Dice(), new Dice());
     }
@@ -33,7 +31,7 @@ public class Game {
     public void play() {
         while (!stop) {
             for (Player player : players) {
-                player.takeTurn(cup, combinaison, plateau, caseLibreAAchat, players, this);
+                player.takeTurn(cup, plateau, caseLibreAAchat, players, this);
                 liberer(player);
             }
         }

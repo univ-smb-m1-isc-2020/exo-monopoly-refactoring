@@ -1,5 +1,6 @@
 package net.guillaume.teaching.refactoring.monopoly;
 
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -7,17 +8,36 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class DiceCupTest {
 
 
-    @Test
-    public void should_always_return_values_between_1_and_6() {
+    @RepeatedTest(1000)
+    public void should_always_return_values_between_2_and_12() {
 
         DiceCup underTest = new DiceCup(new Dice(), new Dice());
-        underTest.roll();
-        int[] result = underTest.read();
 
-        assertThat(result).isNotEmpty();
-        assertThat(result).hasSize(2);
-        assertThat(result[0]).isBetween(1, 6);
-        assertThat(result[1]).isBetween(1, 6);
+        underTest.roll();
+
+        assertThat(underTest.total()).isBetween(2, 12);
+
+    }
+
+    @Test
+    public void should_know_when_rolling_a_double() {
+
+        DiceCup underTest = new DiceCup(new LoadedDice(2), new LoadedDice(2));
+
+        underTest.roll();
+
+        assertThat(underTest.isDouble()).isTrue();
+
+    }
+
+    @Test
+    public void should_know_when_not_rolling_a_double() {
+
+        DiceCup underTest = new DiceCup(new LoadedDice(1), new LoadedDice(2));
+
+        underTest.roll();
+
+        assertThat(underTest.isDouble()).isFalse();
 
     }
 
