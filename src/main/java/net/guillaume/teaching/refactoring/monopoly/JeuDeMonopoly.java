@@ -12,6 +12,7 @@ public class JeuDeMonopoly {
     private boolean stop = false;
     private ArrayList<Property> caseLibreAAchat = new ArrayList<>();
     private Plateau plateau ;
+    private final De[] des;
 
 
 
@@ -24,6 +25,9 @@ public class JeuDeMonopoly {
         joueurs.add(new Joueur("Cedric","Il", plateau.depart));
         combinaison = new Combinaison();
         caseLibreAAchat=  new ArrayList<>(plateau.getCaseAchetable());
+        des = new De[2];
+        des[0] = new De();
+        des[1] = new De();
     }
 
 
@@ -40,7 +44,7 @@ public class JeuDeMonopoly {
 
     private void jouerUnTour(Joueur unjoueur) {
         if (!stop) { //verifier avant le joueur suivant si la partie est arrete
-            int[] valeurLancer = unjoueur.lancer();
+            int[] valeurLancer = unjoueur.lancer(des);
             int total = combinaison.faitLaSomme(valeurLancer);
             boolean verifdouble = combinaison.estUnDouble(valeurLancer);
             unjoueur.monLance(total);  // plus logique de l'afficher avant son eventuel deplacement, achat ou paiment de loyer, prison j'ai donc decomposé mon ousuisje initial
