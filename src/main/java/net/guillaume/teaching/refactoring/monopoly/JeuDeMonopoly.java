@@ -9,7 +9,7 @@ public class JeuDeMonopoly {
 
     private final ArrayList<Joueur> joueurs = new ArrayList<>();
     private final Combinaison combinaison;
-    private boolean stop = false;
+    public boolean stop = false;
     private ArrayList<Property> caseLibreAAchat = new ArrayList<>();
     private Plateau plateau;
     private final DiceCup cup;
@@ -31,49 +31,13 @@ public class JeuDeMonopoly {
     public void jouerUnePartie() {
         while (!stop) {
             for (Joueur joueur : joueurs) {
-                jouerUnTour(joueur);
+                joueur.jouerUnTour(cup, combinaison, plateau, caseLibreAAchat, joueurs, this);
                 liberer(joueur);
             }
         }
         afficheFinDePartie();
     }
 
-
-    private void jouerUnTour(Joueur unjoueur) {
-        if (!stop) { //verifier avant le joueur suivant si la partie est arrete
-            int[] valeurLancer = unjoueur.lancer(cup);
-            int total = combinaison.faitLaSomme(valeurLancer);
-            boolean verifdouble = combinaison.estUnDouble(valeurLancer);
-            unjoueur.monLance(total);  // plus logique de l'afficher avant son eventuel deplacement, achat ou paiment de loyer, prison j'ai donc decomposé mon ousuisje initial
-            // SI DOUBLE
-            if (verifdouble) {
-                unjoueur.aFaitUnDouble(plateau.prison);  // incremente double met rejouer a true, le met en prison , condition liberable
-                if (!unjoueur.estEnPrison()) {        // si pas ne prison ->  jouer  son resultat
-                    jouerLeTotalDe(unjoueur, total);
-                    unjoueur.ouSuisJe();
-                }
-                if (unjoueur.rejoue())    // Si  il a un double il va rejouer  condition nece car appel recursif
-                {
-                    System.out.println(unjoueur.getNomJ() + " rejoue.");
-                    unjoueur.uneFoisCaSuffis();    // on remet a false son droit de rejouer  car appel recursif
-                    jouerUnTour(unjoueur);  // il joue un autre tour
-                }
-                if (unjoueur.getLiberable()) {   // libere le joueur en prison qui a fait un double
-                    unjoueur.liberationDouble();
-                    jouerLeTotalDe(unjoueur, total);
-                    unjoueur.ouSuisJe();
-                }
-            }
-            // SI PAS DOUBLE
-            else {
-                unjoueur.aPasFaitUnDouble();   // donc on remet compteur double à 0
-                if (!unjoueur.estEnPrison()) {
-                    jouerLeTotalDe(unjoueur, total);   // il joue son resultat
-                }
-                unjoueur.ouSuisJe();
-            }
-        }
-    }
 
     private void liberer(Joueur unjoueur) {
         if (unjoueur.estEnPrison())  // verifier si il est prison
@@ -82,16 +46,6 @@ public class JeuDeMonopoly {
         }
     }
 
-    private void jouerLeTotalDe(Joueur unjoueur, int total) {
-        unjoueur.joue(total, plateau.luxe, plateau.allerenprison, plateau.prison);   // tester si cas construtible
-        if (unjoueur.getPosition() instanceof Property) {
-            unjoueur.acheterCase((Property) unjoueur.getPosition(), caseLibreAAchat);
-            unjoueur.payerLoyer((Property) unjoueur.getPosition(), caseLibreAAchat, joueurs);
-        }
-        stop = unjoueur.finDePartie();
-        // avancer sur le plateau et faire action
-
-    }
 
     private void afficheFinDePartie() {
         System.out.println("La partie est terminee !!!");   // L'affichage de la suite etait pas deamnde mais ca parait plus coherent

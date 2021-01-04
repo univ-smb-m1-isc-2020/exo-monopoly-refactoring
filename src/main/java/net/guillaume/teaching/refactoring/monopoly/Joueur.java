@@ -85,6 +85,53 @@ public class Joueur implements Comparable {
         return tour == 100 || argent < 0;
     }
 
+    public void jouerUnTour(DiceCup cup, Combinaison combinaison, Plateau plateau, ArrayList<Property> caseLibreAAchat, ArrayList<Joueur> joueurs, JeuDeMonopoly jeuDeMonopoly) {
+            if (!jeuDeMonopoly.stop) { //verifier avant le joueur suivant si la partie est arrete
+            int[] valeurLancer = this.lancer(cup);
+            int total = combinaison.faitLaSomme(valeurLancer);
+            boolean verifdouble = combinaison.estUnDouble(valeurLancer);
+                this.monLance(total);  // plus logique de l'afficher avant son eventuel deplacement, achat ou paiment de loyer, prison j'ai donc decomposé mon ousuisje initial
+            // SI DOUBLE
+            if (verifdouble) {
+                this.aFaitUnDouble(plateau.prison);  // incremente double met rejouer a true, le met en prison , condition liberable
+                if (!this.estEnPrison()) {        // si pas ne prison ->  jouer  son resultat
+                    jouerLeTotalDe(this, total, plateau,caseLibreAAchat, joueurs, jeuDeMonopoly);
+                    this.ouSuisJe();
+                }
+                if (this.rejoue())    // Si  il a un double il va rejouer  condition nece car appel recursif
+                {
+                    System.out.println(this.getNomJ() + " rejoue.");
+                    this.uneFoisCaSuffis();    // on remet a false son droit de rejouer  car appel recursif
+                    jouerUnTour(cup, combinaison, plateau, caseLibreAAchat, joueurs, jeuDeMonopoly);  // il joue un autre tour
+                }
+                if (this.getLiberable()) {   // libere le joueur en prison qui a fait un double
+                    this.liberationDouble();
+                    jouerLeTotalDe(this, total, plateau,caseLibreAAchat, joueurs, jeuDeMonopoly);
+                    this.ouSuisJe();
+                }
+            }
+            // SI PAS DOUBLE
+            else {
+                this.aPasFaitUnDouble();   // donc on remet compteur double à 0
+                if (!this.estEnPrison()) {
+                    jouerLeTotalDe(this, total, plateau,caseLibreAAchat, joueurs, jeuDeMonopoly);   // il joue son resultat
+                }
+                this.ouSuisJe();
+            }
+        }
+    }
+
+    private void jouerLeTotalDe(Joueur unjoueur, int total, Plateau plateau, ArrayList<Property> caseLibreAAchat, ArrayList<Joueur> joueurs, JeuDeMonopoly jeuDeMonopoly) {
+        unjoueur.joue(total, plateau.luxe, plateau.allerenprison, plateau.prison);   // tester si cas construtible
+        if (unjoueur.getPosition() instanceof Property) {
+            unjoueur.acheterCase((Property) unjoueur.getPosition(), caseLibreAAchat);
+            unjoueur.payerLoyer((Property) unjoueur.getPosition(), caseLibreAAchat, joueurs);
+        }
+        jeuDeMonopoly.stop = unjoueur.finDePartie();
+        // avancer sur le plateau et faire action
+
+    }
+
     public int[] lancer(DiceCup cup) {
         cup.roll();
         return cup.read();
@@ -340,5 +387,7 @@ public class Joueur implements Comparable {
     public void debit(double amount) {
         argent -= amount;
     }
+
+
 }
 
