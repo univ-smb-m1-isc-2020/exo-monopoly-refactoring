@@ -17,6 +17,6 @@ public class CaseTaxeLuxe extends CaseSpeciale {
 	@Override
 	public void termineDessus(Joueur joueur) {
 		// Taxe le joueur selon son lancer total
-		joueur.debit(5 * joueur.getTotalDes());
+		joueur.debit(5 * joueur.getTotalLancer());
 	}
 }

@@ -7,11 +7,11 @@ import net.guillaume.teaching.refactoring.monopoly.cases.CaseConstructible;
 
 public class Joueur implements Comparable {
 
-    private final De[] des;
     private final String nom;
     private final String sexe;
     private int argent;
     private Case position;
+    private int totalLancer;
     private int nombreDeDouble;  // indique le nombre de double a la suite
     private int tour;  // indique le nombre de tour de plateau
     private boolean enPrison; // indique si le joueur est en prison
@@ -31,10 +31,10 @@ public class Joueur implements Comparable {
     private ArrayList<CaseConstructible> casespossedes= new ArrayList<>()   ;    // contient la liste des propriété possedes
 
     public Joueur(String nom, String sexe, Case position) {
-        des = new De[2];
         this.nom = nom;
         this.sexe= sexe;
         argent = 400;
+        totalLancer = 0;
         nombreDeDouble = 0;
         tour = 0;
         enPrison = false;
@@ -53,8 +53,6 @@ public class Joueur implements Comparable {
         g=0;
         gare=0;
         casespossedes= new ArrayList<CaseConstructible>();
-        des[0] = new De();
-        des[1] = new De();
     }
 
     public boolean getLiberable() {
@@ -79,6 +77,10 @@ public class Joueur implements Comparable {
     public boolean estEnPrison() {
         return enPrison;
     }
+    
+    public int getTotalLancer() {
+    	return totalLancer;
+    }
 
     public boolean rejoue() {
         return rejouer;
@@ -92,10 +94,6 @@ public class Joueur implements Comparable {
     	this.argent -= perte;
     }
     
-    public int getTotalDes() {
-    	return des[0].getValeur() + des[1].getValeur();
-    }
-    
     public int getTour() {
     	return this.tour;
     }
@@ -106,15 +104,6 @@ public class Joueur implements Comparable {
 
     public boolean finDePartie() { // condition de fin de partie
         return tour == 100 || argent < 0;
-    }
-
-    public int[] lancer() {  // le joueur lance les 2 et recupere un tableau de valeur
-        int[] valeurlancer = new int[2];
-        for (int i = 0; i < des.length; i++) {
-            des[i].lancer();
-            valeurlancer[i] = des[i].getValeur();
-        }
-        return valeurlancer;
     }
 
     public void ouSuisJe() {
@@ -178,6 +167,7 @@ public class Joueur implements Comparable {
     }
 
     public void joue(int total, Case allerenpri, Case priso) {
+    	totalLancer = total;
         for (int i = 0; i < total; i++) {    // deplace le joueur en fonction du lancer
             position = position.retourneCaseSuivante();
             position.passeDessus(this);

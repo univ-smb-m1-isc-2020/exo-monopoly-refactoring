@@ -1,8 +1,8 @@
-package net.guillaume.teaching.refactoring.monopoly;
+package net.guillaume.teaching.refactoring.monopoly.des;
 
 public class De {
 
-    private int valeurFace;
+    protected int valeurFace;
 
 
     public De() {

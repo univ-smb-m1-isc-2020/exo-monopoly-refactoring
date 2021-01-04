@@ -4,14 +4,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import net.guillaume.teaching.refactoring.monopoly.cases.CaseConstructible;
+import net.guillaume.teaching.refactoring.monopoly.des.De;
+import net.guillaume.teaching.refactoring.monopoly.des.GobeletDes;
 
 public class JeuDeMonopoly {
 
     private final ArrayList<Joueur> joueurs = new ArrayList<>();
-    private final Combinaison combinaison;
     private boolean stop = false;
     private ArrayList<CaseConstructible> caseLibreAAchat = new ArrayList<>();
-    private Plateau plateau ;
+    private Plateau plateau;
+    private final GobeletDes gobelet;
 
 
 
@@ -22,8 +24,8 @@ public class JeuDeMonopoly {
         joueurs.add(new Joueur("Loubna","Elle", plateau.depart));
         joueurs.add(new Joueur("Mathieu","Il", plateau.depart));
         joueurs.add(new Joueur("Cedric","Il", plateau.depart));
-        combinaison = new Combinaison();
         caseLibreAAchat=  new ArrayList<>(plateau.getCaseAchetable());
+        gobelet = new GobeletDes(new De(), new De());
     }
 
 
@@ -40,9 +42,9 @@ public class JeuDeMonopoly {
 
     private void jouerUnTour(Joueur unjoueur) {
         if (!stop) { //verifier avant le joueur suivant si la partie est arrete
-            int[] valeurLancer = unjoueur.lancer();
-            int total = combinaison.faitLaSomme(valeurLancer);
-            boolean verifdouble = combinaison.estUnDouble(valeurLancer);
+            gobelet.lancer();
+            int total = gobelet.total();
+            boolean verifdouble = gobelet.estUnDouble();
             unjoueur.monLance(total);  // plus logique de l'afficher avant son eventuel deplacement, achat ou paiment de loyer, prison j'ai donc decomposé mon ousuisje initial
     // SI DOUBLE
             if (verifdouble) {
