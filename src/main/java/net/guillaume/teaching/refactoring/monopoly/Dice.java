@@ -2,19 +2,18 @@ package net.guillaume.teaching.refactoring.monopoly;
 
 public class Dice {
 
-    private int valeurFace;
-
+    private int value;
 
     public Dice() {
-        valeurFace = 1;
+        roll();
     }
 
-    public int getValeur() {
-        return valeurFace;
+    public int read() {
+        return value;
     }
 
-    public void lancer() {
-        valeurFace = (int) (Math.random() * 6) + 1;
+    public void roll() {
+        value = (int) (Math.random() * 6) + 1;
     }
 
 }

@@ -13,8 +13,8 @@ public class DiceCup {
 
     public void roll() {
         for (int i = 0; i < dice.length; i++) {
-            dice[0].lancer();
-            valeurlancer[i] = dice[0].getValeur();
+            dice[0].roll();
+            valeurlancer[i] = dice[0].read();
         }
     }
 
