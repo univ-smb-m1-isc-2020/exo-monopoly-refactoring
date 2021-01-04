@@ -24,7 +24,7 @@ public class JeuDeMonopoly {
         joueurs.add(new Joueur("Cedric", "Il", plateau.depart));
         combinaison = new Combinaison();
         caseLibreAAchat = new ArrayList<>(plateau.getCaseAchetable());
-        cup = new DiceCup(new De(), new De());
+        cup = new DiceCup(new Dice(), new Dice());
     }
 
 

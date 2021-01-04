@@ -10,7 +10,7 @@ public class DiceCupTest {
     @Test
     public void should_always_return_values_between_1_and_6() {
 
-        DiceCup underTest = new DiceCup(new De(), new De());
+        DiceCup underTest = new DiceCup(new Dice(), new Dice());
         underTest.roll();
         int[] result = underTest.read();
 

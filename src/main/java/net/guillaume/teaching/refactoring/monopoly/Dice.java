@@ -1,11 +1,11 @@
 package net.guillaume.teaching.refactoring.monopoly;
 
-public class De {
+public class Dice {
 
     private int valeurFace;
 
 
-    public De() {
+    public Dice() {
         valeurFace = 1;
     }
 
