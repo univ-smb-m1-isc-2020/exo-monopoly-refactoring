@@ -1,6 +1,6 @@
 package net.guillaume.teaching.refactoring.monopoly.squares;
 
-import net.guillaume.teaching.refactoring.monopoly.Joueur;
+import net.guillaume.teaching.refactoring.monopoly.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -8,12 +8,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class StartTest {
 
-    private Joueur player;
+    private Player player;
     private Start underTest;
 
     @BeforeEach
     public void setUp() {
-        player = new Joueur("Marina", "Elle", null);
+        player = new Player("Marina", "Elle", null);
         underTest = new Start();
     }
 

@@ -1,6 +1,6 @@
 package net.guillaume.teaching.refactoring.monopoly.squares;
 
-import net.guillaume.teaching.refactoring.monopoly.Joueur;
+import net.guillaume.teaching.refactoring.monopoly.Player;
 
 public class Start extends Square {
 
@@ -8,9 +8,9 @@ public class Start extends Square {
         super("Start");
     }
 
-    public void passBy(Joueur joueur) {
-        joueur.credit(200);
-        joueur.incrementsLoops();
+    public void passBy(Player player) {
+        player.credit(200);
+        player.incrementsLoops();
     }
 
 }

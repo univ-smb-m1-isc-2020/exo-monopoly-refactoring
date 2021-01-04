@@ -4,8 +4,9 @@ import net.guillaume.teaching.refactoring.monopoly.squares.Property;
 import net.guillaume.teaching.refactoring.monopoly.squares.Square;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class Joueur implements Comparable {
+public class Player implements Comparable {
 
     private final String nom;
     private final String sexe;
@@ -29,7 +30,7 @@ public class Joueur implements Comparable {
     private int gare;
     private ArrayList<Property> casespossedes = new ArrayList<>();    // contient la liste des propriété possedes
 
-    public Joueur(String nom, String sexe, Square position) {
+    public Player(String nom, String sexe, Square position) {
         this.nom = nom;
         this.sexe = sexe;
         argent = 400;
@@ -85,28 +86,28 @@ public class Joueur implements Comparable {
         return tour == 100 || argent < 0;
     }
 
-    public void jouerUnTour(DiceCup cup, Combinaison combinaison, Plateau plateau, ArrayList<Property> caseLibreAAchat, ArrayList<Joueur> joueurs, JeuDeMonopoly jeuDeMonopoly) {
-            if (!jeuDeMonopoly.stop) { //verifier avant le joueur suivant si la partie est arrete
+    public void takeTurn(DiceCup cup, Combinaison combinaison, Plateau plateau, List<Property> caseLibreAAchat, List<Player> players, Game game) {
+        if (!game.stop) { //verifier avant le joueur suivant si la partie est arrete
             int[] valeurLancer = this.lancer(cup);
             int total = combinaison.faitLaSomme(valeurLancer);
             boolean verifdouble = combinaison.estUnDouble(valeurLancer);
-                this.monLance(total);  // plus logique de l'afficher avant son eventuel deplacement, achat ou paiment de loyer, prison j'ai donc decomposé mon ousuisje initial
+            this.monLance(total);  // plus logique de l'afficher avant son eventuel deplacement, achat ou paiment de loyer, prison j'ai donc decomposé mon ousuisje initial
             // SI DOUBLE
             if (verifdouble) {
                 this.aFaitUnDouble(plateau.prison);  // incremente double met rejouer a true, le met en prison , condition liberable
                 if (!this.estEnPrison()) {        // si pas ne prison ->  jouer  son resultat
-                    jouerLeTotalDe(this, total, plateau,caseLibreAAchat, joueurs, jeuDeMonopoly);
+                    jouerLeTotalDe(this, total, plateau, caseLibreAAchat, players, game);
                     this.ouSuisJe();
                 }
                 if (this.rejoue())    // Si  il a un double il va rejouer  condition nece car appel recursif
                 {
                     System.out.println(this.getNomJ() + " rejoue.");
                     this.uneFoisCaSuffis();    // on remet a false son droit de rejouer  car appel recursif
-                    jouerUnTour(cup, combinaison, plateau, caseLibreAAchat, joueurs, jeuDeMonopoly);  // il joue un autre tour
+                    takeTurn(cup, combinaison, plateau, caseLibreAAchat, players, game);  // il joue un autre tour
                 }
                 if (this.getLiberable()) {   // libere le joueur en prison qui a fait un double
                     this.liberationDouble();
-                    jouerLeTotalDe(this, total, plateau,caseLibreAAchat, joueurs, jeuDeMonopoly);
+                    jouerLeTotalDe(this, total, plateau, caseLibreAAchat, players, game);
                     this.ouSuisJe();
                 }
             }
@@ -114,20 +115,20 @@ public class Joueur implements Comparable {
             else {
                 this.aPasFaitUnDouble();   // donc on remet compteur double à 0
                 if (!this.estEnPrison()) {
-                    jouerLeTotalDe(this, total, plateau,caseLibreAAchat, joueurs, jeuDeMonopoly);   // il joue son resultat
+                    jouerLeTotalDe(this, total, plateau, caseLibreAAchat, players, game);   // il joue son resultat
                 }
                 this.ouSuisJe();
             }
         }
     }
 
-    private void jouerLeTotalDe(Joueur unjoueur, int total, Plateau plateau, ArrayList<Property> caseLibreAAchat, ArrayList<Joueur> joueurs, JeuDeMonopoly jeuDeMonopoly) {
+    private void jouerLeTotalDe(Player unjoueur, int total, Plateau plateau, List<Property> caseLibreAAchat, List<Player> players, Game game) {
         unjoueur.joue(total, plateau.luxe, plateau.allerenprison, plateau.prison);   // tester si cas construtible
         if (unjoueur.getPosition() instanceof Property) {
             unjoueur.acheterCase((Property) unjoueur.getPosition(), caseLibreAAchat);
-            unjoueur.payerLoyer((Property) unjoueur.getPosition(), caseLibreAAchat, joueurs);
+            unjoueur.payerLoyer((Property) unjoueur.getPosition(), caseLibreAAchat, players);
         }
-        jeuDeMonopoly.stop = unjoueur.finDePartie();
+        game.stop = unjoueur.finDePartie();
         // avancer sur le plateau et faire action
 
     }
@@ -220,7 +221,7 @@ public class Joueur implements Comparable {
         }
     }
 
-    public void acheterCase(Property c, ArrayList<Property> listecase) {
+    public void acheterCase(Property c, List<Property> listecase) {
         if (c.getCoutAchat() < argent && listecase.contains(c)) {  // si le joueur a argent et si la case est libre
             argent = argent - c.getCoutAchat();
             listecase.remove(c);    // enleve la case de la liste des cases libres
@@ -231,12 +232,12 @@ public class Joueur implements Comparable {
     }
 
 
-    public void payerLoyer(Property c, ArrayList<Property> listecase, ArrayList<Joueur> j) {
+    public void payerLoyer(Property c, List<Property> listecase, List<Player> j) {
         if (!listecase.contains(c) && !casespossedes.contains(c)) {   //si la case a un propritaire et que ce n est pas le joueur
             if (c.getCouleur() == "gare") {   // traitement du cas particulier de la gare
                 int montantloyer = 0;
                 int nombregare = 0;
-                for (Joueur aJ : j) {
+                for (Player aJ : j) {
                     if (aJ.casespossedes.contains(c)) {
                         nombregare = aJ.getNombrePropriete(c.getCouleur()) - 1; // recupere le nombre de gare posseder par le proprietaire de la case gare -1 pr calcul loyer
                         argent = argent - c.getLoyer() * (int) Math.pow(2, nombregare);
@@ -254,7 +255,7 @@ public class Joueur implements Comparable {
                     }
                 }
             } else {  // traitement si pas une gare
-                for (Joueur aJ : j) {
+                for (Player aJ : j) {
                     if (aJ.casespossedes.contains(c)) {  // cherche le joueur qui est proprietaire de la case
                         if (aJ.getNombrePropriete(c.getCouleur()) == c.nombreProprieteDeLaCouleur(c.getCouleur())) {  // si le propriatire a toutes les propriétés
                             argent = argent - c.getLoyer() * 2;
@@ -345,7 +346,7 @@ public class Joueur implements Comparable {
 
 
     public int compareTo(Object other) {    // sert au classement fianl des joueurs
-        int nombre1 = ((Joueur) other).getArgent();
+        int nombre1 = ((Player) other).getArgent();
         int nombre2 = this.getArgent();
         if (nombre1 > nombre2) return -1;
         else if (nombre1 == nombre2) return 0;

@@ -1,6 +1,6 @@
 package net.guillaume.teaching.refactoring.monopoly.squares;
 
-import net.guillaume.teaching.refactoring.monopoly.Joueur;
+import net.guillaume.teaching.refactoring.monopoly.Player;
 
 public class IncomeTax extends Square {
 
@@ -9,7 +9,7 @@ public class IncomeTax extends Square {
     }
 
     @Override
-    public void landOn(Joueur player) {
+    public void landOn(Player player) {
 
         double credit = player.getCredit();
         double remaining = (int) Math.floor(credit * 0.9);
